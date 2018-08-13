@@ -4,7 +4,9 @@
     let searchedForText;
     const responseContainer = document.querySelector('#response-container');
     const unsplashRequest = new XMLHttpRequest();
+    const articleRequest = new XMLHttpRequest();
     unsplashRequest.onload = addImage;
+    articleRequest.onload = addArticles;
 
     form.addEventListener('submit', function (e) {
         e.preventDefault();
@@ -12,6 +14,8 @@
         searchedForText = searchField.value;
         unsplashRequest.open('GET', `https://api.unsplash.com/search/photos?page=1&query=${searchedForText}`);
         unsplashRequest.setRequestHeader('Authorization', 'Client-ID b661635622605a3f29a7682c4fa5087278bdbdd047404406831afd3b4e690ebe');
+        articleRequest.open('GET', `http://api.nytimes.com/svc/search/v2/articlesearch.json?q=${searchedForText}&api-key=`);
+        articleRequest.send();
         unsplashRequest.send();
     });
 
@@ -39,4 +43,6 @@
 
         responseContainer.insertAdjacentHTML('afterbegin', htmlContent);
     }
+    function addArticles () {}
+
 })();
