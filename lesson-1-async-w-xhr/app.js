@@ -44,10 +44,12 @@
     }
     function addArticles() {
         const articles = JSON.parse(this.responseText);
-        const firstArticle = articles.response.docs[0];
-
         if (articles) {
-            htmlContent += `<div>${firstArticle.headline.main}</div>`;
+            htmlContent += '<ul>' + articles.response.docs.map(article =>`<li>
+            <h2><a href=${article.web_url}>${article.headline.main}</a></h2>
+            <p>${article.snippet}</p>
+          </li>`
+        ).join('') + '</ul>'
         } else {
             htmlContent += `<p>Your search returned no articles</p>`;
         }
